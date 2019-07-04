@@ -8,28 +8,11 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      # if not brie or tickets, decrease item quality until you get to 0
       if !special?(item)
         item.quality -= 1 if item.quality > 0
       else
-        # if not sulfuras, but brie or tickets then quality increases up to 50
-        if item.quality < 50
-          item.quality = item.quality + 1
-          # tickets increase in quality again (2) if < 11 days until sell_in
-          if item.name == "Backstage passes to a TAFKAL80ETC concert"
-            if item.sell_in < 11
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
-            end
-            # tickets increase in quality again (3) if < 6 days until sell_in
-            if item.sell_in < 6
-              if item.quality < 50
-                item.quality = item.quality + 1
-              end
-            end
-          end
-        end
+        update_bsp_quality(item)
+        update_brie_quality(item)
       end
 
       # update sell_in for all but Sulfuras
@@ -51,11 +34,6 @@ class GildedRose
             # item quality becomes 0 if tickets
             item.quality = item.quality - item.quality
           end
-        else
-          # item quality increases if brie
-          if item.quality < 50
-            item.quality = item.quality + 1
-          end
         end
       end
     end
@@ -74,13 +52,18 @@ class GildedRose
   #   item.sell_in -= 1
   # end
 
-  def update_bsp_quality(bsp)
-    item.quality += 1 if item.quality < 50
-    item.quality += 1 if item.quality < 50 && item.sell_in < 11
-    item.quality += 1 if item.quality < 50 && item.sell_in < 6
+  def update_bsp_quality(item)
+    if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+      item.quality += 1 if item.quality < 50
+      item.quality += 1 if item.quality < 50 && item.sell_in < 11
+      item.quality += 1 if item.quality < 50 && item.sell_in < 6
+    end
   end
 
-  def update_brie_quality(brie)
-    item.quality += 1 if item.quality < 50
+  def update_brie_quality(item)
+    if item.name == 'Aged Brie'
+      item.quality += 1 if item.quality < 50
+      item.quality += 1 if item.sell_in < 0
+    end
   end
 end
