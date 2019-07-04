@@ -8,31 +8,23 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
+      # update sell_in for all but Sulfuras
+      update_sell_in(item)
+
       if !special?(item)
-        item.quality -= 1 if item.quality > 0
+        update_item_quality(item)
       else
         update_bsp_quality(item)
         update_brie_quality(item)
-      end
-
-      # update sell_in for all but Sulfuras
-      if item.name != "Sulfuras, Hand of Ragnaros"
-        item.sell_in = item.sell_in - 1
       end
 
       # past sell_in
       if item.sell_in < 0
         # item quality decrease by 1 each day for most items, barring sulfuras etc
         if item.name != "Aged Brie"
-          if item.name != "Backstage passes to a TAFKAL80ETC concert"
-            if item.quality > 0
-              if item.name != "Sulfuras, Hand of Ragnaros"
-                item.quality = item.quality - 1
-              end
-            end
-          else
+          if item.name == "Backstage passes to a TAFKAL80ETC concert"
             # item quality becomes 0 if tickets
-            item.quality = item.quality - item.quality
+            item.quality = 0
           end
         end
       end
@@ -46,11 +38,10 @@ class GildedRose
      'Sulfuras, Hand of Ragnaros'].include?(item.name)
   end
 
-  # def update_quality(item)
-  #   item.quality -= 1 if item.quality > 0
-  #   item.quality -= 1 if item.quality > 0 && item.sell_in < 0
-  #   item.sell_in -= 1
-  # end
+  def update_item_quality(item)
+    item.quality -= 1 if item.quality > 0
+    item.quality -= 1 if item.quality > 0 && item.sell_in < 0
+  end
 
   def update_bsp_quality(item)
     if item.name == 'Backstage passes to a TAFKAL80ETC concert'
@@ -65,5 +56,9 @@ class GildedRose
       item.quality += 1 if item.quality < 50
       item.quality += 1 if item.sell_in < 0
     end
+  end
+
+  def update_sell_in(item)
+    item.sell_in -= 1 unless item.name == 'Sulfuras, Hand of Ragnaros'
   end
 end
