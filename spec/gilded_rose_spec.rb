@@ -96,10 +96,16 @@ describe GildedRose do
     end
 
     context 'if item is Conjured' do
-      it 'should degrade twice as fast as a normal item' do
+      it 'should degrade by 2 in normal cases' do
         items = [Item.new('Conjured', 20, default_quality)]
         update(items)
         expect(items[0].quality).to eq(18)
+      end
+
+      it 'should degrade by 4 after sell_in has passed' do
+        items = [Item.new('Conjured', 0, default_quality)]
+        update(items)
+        expect(items[0].quality).to eq(16)
       end
     end
   end

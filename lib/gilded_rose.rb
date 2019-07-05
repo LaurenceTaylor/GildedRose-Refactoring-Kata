@@ -47,7 +47,7 @@ class GildedRose
   end
 
   def update_conjured_quality(item)
-    2.times { item.quality -= 1 if item.quality > MIN_QUALITY }
+    2.times { update_item_quality(item) }
   end
 
   def update_item_quality(item)
