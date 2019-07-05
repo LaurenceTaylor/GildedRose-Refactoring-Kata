@@ -12,7 +12,7 @@ describe GildedRose do
         expect(items[0].name).to eq 'foo'
       end
 
-      it 'should reduce item quality by 1 unless brie or BSP (backstage pass)' do
+      it 'should reduce item quality by 1 unless brie/ BSP (backstage pass)' do
         items = [Item.new('Orange Juice', 7, default_quality)]
         update(items)
         expect(items[0].quality).to eq(default_quality - 1)
@@ -50,7 +50,7 @@ describe GildedRose do
     context 'if item is a backstage pass' do
       it 'should normally increase item quality by 1' do
         items = [Item.new('Backstage passes to a TAFKAL80ETC concert',
-                 15, default_quality)]
+                          15, default_quality)]
 
         update(items)
         expect(items[0].quality).to eq(default_quality + 1)
@@ -58,7 +58,7 @@ describe GildedRose do
 
       it 'should increase item quality by 2 if <= 10 days to go' do
         items = [Item.new('Backstage passes to a TAFKAL80ETC concert',
-                 9, default_quality)]
+                          9, default_quality)]
 
         update(items)
         expect(items[0].quality).to eq(default_quality + 2)
@@ -66,7 +66,7 @@ describe GildedRose do
 
       it 'should increase item quality by 3 if <= 5 days to go' do
         items = [Item.new('Backstage passes to a TAFKAL80ETC concert',
-                 4, default_quality)]
+                          4, default_quality)]
 
         update(items)
         expect(items[0].quality).to eq(default_quality + 3)
@@ -74,7 +74,7 @@ describe GildedRose do
 
       it 'should have quality drop to 0 after the gig' do
         items = [Item.new('Backstage passes to a TAFKAL80ETC concert',
-                 0, default_quality)]
+                          0, default_quality)]
 
         update(items)
         expect(items[0].quality).to eq(0)
