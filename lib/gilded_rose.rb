@@ -1,4 +1,3 @@
-require 'item'
 # Class for the entire tavern - responsible for holding items/ updating quality
 class GildedRose
   MAX_QUALITY = 50
@@ -22,12 +21,11 @@ class GildedRose
   private
 
   def update_quality_logic(item)
-    case item.name
-    when 'Backstage passes to a TAFKAL80ETC concert'
+    if item.name == 'Backstage passes to a TAFKAL80ETC concert'
       update_bsp_quality(item)
-    when 'Aged Brie'
+    elsif item.name == 'Aged Brie'
       update_brie_quality(item)
-    when 'Conjured'
+    elsif conjured?(item)
       update_conjured_quality(item)
     else
       update_item_quality(item)
@@ -72,5 +70,9 @@ class GildedRose
 
   def decrease_quality_by_one(item)
     item.quality -= 1 if item.quality > MIN_QUALITY
+  end
+
+  def conjured?(item)
+    item.name.include?('Conjured')
   end
 end
