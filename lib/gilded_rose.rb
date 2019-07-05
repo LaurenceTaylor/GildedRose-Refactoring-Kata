@@ -4,6 +4,7 @@ class GildedRose
   MAX_QUALITY = 50
   MIN_QUALITY = 0
   LEGENDARY_ITEMS = ['Sulfuras, Hand of Ragnaros'].freeze
+  CONJURED_MULTIPLIER = 2
 
   def initialize(items)
     @items = items
@@ -47,7 +48,7 @@ class GildedRose
   end
 
   def update_conjured_quality(item)
-    2.times { update_item_quality(item) }
+    CONJURED_MULTIPLIER.times { update_item_quality(item) }
   end
 
   def update_item_quality(item)
