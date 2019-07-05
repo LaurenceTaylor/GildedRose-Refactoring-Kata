@@ -3,6 +3,7 @@ require 'item'
 class GildedRose
   MAX_QUALITY = 50
   MIN_QUALITY = 0
+  LEGENDARY_ITEMS = ['Sulfuras, Hand of Ragnaros'].freeze
 
   def initialize(items)
     @items = items
@@ -10,7 +11,7 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      unless item.name == 'Sulfuras, Hand of Ragnaros'
+      unless LEGENDARY_ITEMS.include?(item.name)
         update_sell_in(item)
         update_quality_logic(item)
       end
@@ -42,7 +43,7 @@ class GildedRose
 
   def update_brie_quality(item)
     item.quality += 1 if item.quality < MAX_QUALITY
-    item.quality += 1 if item.sell_in < MIN_QUALITY
+    item.quality += 1 if item.sell_in < 0
   end
 
   def update_conjured_quality(item)
