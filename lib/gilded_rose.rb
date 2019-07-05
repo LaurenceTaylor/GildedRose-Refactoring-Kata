@@ -37,13 +37,13 @@ class GildedRose
     if item.sell_in < 0
       item.quality = MIN_QUALITY
     else
-      bsp_quality_reflects_demand(item)
+      bsp_quality_increase_reflects_demand(item)
     end
   end
 
   def update_brie_quality(item)
-    item.quality += 1 if item.quality < MAX_QUALITY
-    item.quality += 1 if item.sell_in < 0
+    increase_quality_by_one(item)
+    increase_quality_by_one(item) if item.sell_in < 0
   end
 
   def update_conjured_quality(item)
@@ -51,17 +51,25 @@ class GildedRose
   end
 
   def update_item_quality(item)
-    item.quality -= 1 if item.quality > MIN_QUALITY
-    item.quality -= 1 if item.quality > MIN_QUALITY && item.sell_in < 0
+    decrease_quality_by_one(item)
+    decrease_quality_by_one(item) if item.sell_in < 0
   end
 
   def update_sell_in(item)
     item.sell_in -= 1
   end
 
-  def bsp_quality_reflects_demand(item)
+  def bsp_quality_increase_reflects_demand(item)
+    increase_quality_by_one(item)
+    increase_quality_by_one(item) if item.sell_in < 11
+    increase_quality_by_one(item) if item.sell_in < 6
+  end
+
+  def increase_quality_by_one(item)
     item.quality += 1 if item.quality < MAX_QUALITY
-    item.quality += 1 if item.quality < MAX_QUALITY && item.sell_in < 11
-    item.quality += 1 if item.quality < MAX_QUALITY && item.sell_in < 6
+  end
+
+  def decrease_quality_by_one(item)
+    item.quality -= 1 if item.quality > MIN_QUALITY
   end
 end
