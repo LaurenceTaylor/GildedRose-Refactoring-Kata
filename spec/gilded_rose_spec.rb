@@ -94,5 +94,13 @@ describe GildedRose do
         expect(items[0].sell_in).to eq(10)
       end
     end
+
+    context 'if item is Conjured' do
+      it 'should degrade twice as fast as a normal item' do
+        items = [Item.new('Conjured', 20, default_quality)]
+        update(items)
+        expect(items[0].quality).to eq(18)
+      end
+    end
   end
 end

@@ -25,6 +25,8 @@ class GildedRose
       update_bsp_quality(item)
     when 'Aged Brie'
       update_brie_quality(item)
+    when 'Conjured'
+      update_conjured_quality(item)
     else
       update_item_quality(item)
     end
@@ -41,6 +43,10 @@ class GildedRose
   def update_brie_quality(item)
     item.quality += 1 if item.quality < MAX_QUALITY
     item.quality += 1 if item.sell_in < MIN_QUALITY
+  end
+
+  def update_conjured_quality(item)
+    2.times { item.quality -= 1 if item.quality > MIN_QUALITY }
   end
 
   def update_item_quality(item)
