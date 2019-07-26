@@ -1,4 +1,4 @@
-# ## Uncomment this and run the file
+# ## Uncomment this code and run the file
 # require_relative './lib/item.rb'
 # require_relative './lib/gilded_rose.rb'
 #

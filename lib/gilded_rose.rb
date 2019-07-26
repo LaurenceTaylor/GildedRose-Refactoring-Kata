@@ -73,6 +73,6 @@ class GildedRose
   end
 
   def conjured?(item)
-    item.name.include?('Conjured')
+    item.name.downcase.include?('conjured')
   end
 end
