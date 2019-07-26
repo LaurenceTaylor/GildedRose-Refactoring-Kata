@@ -1,4 +1,4 @@
-*Below is the original README, to view my approach [click this link](github.com/laurencetaylor/GildedRose-Refactoring-Kata/APPROACH.md)*
+**Below is the original README, to view my approach [click this link](https://github.com/LaurenceTaylor/GildedRose-Refactoring-Kata/blob/master/APPROACH.md)**
 
 # Gilded Rose Refactoring Kata
 
