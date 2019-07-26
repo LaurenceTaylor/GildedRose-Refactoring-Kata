@@ -36,4 +36,4 @@
 
 * This was a very enjoyable practice in refactoring. It felt great making progress on what was initially incomprehensible code.
 
-* I questioned whether to mock the Item class in my Gilded Rose tests. I opted against this, as this was primarily an exercise in refactoring, and the Item class should always remain unchanged according to the requirements.
+* I questioned whether to mock the Item class in my Gilded Rose tests. I opted against this, as this was primarily an exercise in refactoring, and the Item class should always remain unchanged per the requirements.
