@@ -11,14 +11,18 @@ class GildedRose
 
   def update_quality
     @items.each do |item|
-      unless LEGENDARY_ITEMS.include?(item.name)
-        update_sell_in(item)
-        update_quality_logic(item)
-      end
+      update_item(item)
     end
   end
 
   private
+
+  def update_item(item)
+    unless legendary?(item)
+      update_sell_in(item)
+      update_quality_logic(item)
+    end
+  end
 
   def update_quality_logic(item)
     if item.name == 'Backstage passes to a TAFKAL80ETC concert'
@@ -33,7 +37,7 @@ class GildedRose
   end
 
   def update_bsp_quality(item)
-    if item.sell_in < 0
+    if passed_sell_in?(item)
       item.quality = MIN_QUALITY
     else
       bsp_quality_increase_reflects_demand(item)
@@ -42,7 +46,7 @@ class GildedRose
 
   def update_brie_quality(item)
     increase_quality_by_one(item)
-    increase_quality_by_one(item) if item.sell_in < 0
+    increase_quality_by_one(item) if passed_sell_in?(item)
   end
 
   def update_conjured_quality(item)
@@ -51,7 +55,7 @@ class GildedRose
 
   def update_item_quality(item)
     decrease_quality_by_one(item)
-    decrease_quality_by_one(item) if item.sell_in < 0
+    decrease_quality_by_one(item) if passed_sell_in?(item)
   end
 
   def update_sell_in(item)
@@ -74,5 +78,13 @@ class GildedRose
 
   def conjured?(item)
     item.name.downcase.include?('conjured')
+  end
+
+  def legendary?(item)
+    LEGENDARY_ITEMS.include?(item.name)
+  end
+
+  def passed_sell_in?(item)
+    item.sell_in < 0
   end
 end
