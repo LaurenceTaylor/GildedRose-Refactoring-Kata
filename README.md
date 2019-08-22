@@ -22,7 +22,7 @@
 
 * Added comments to gilded_rose.rb to gain a better understanding of what the code was doing in specific parts and demystify the nested conditional statements.
 
-* Wrote a passing test suite to prevent regression while refactoring.
+* Wrote a passing test suite to prevent regression while refactoring (100% coverage).
 
 * Refactored at a basic level - rearranged if statements and removed obviously unnecessary code.
 
