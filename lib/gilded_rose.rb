@@ -18,16 +18,15 @@ class GildedRose
   private
 
   def update_item(item)
-    unless legendary?(item)
-      update_sell_in(item)
-      update_quality_logic(item)
-    end
+    return if legendary?(item)
+    update_sell_in(item)
+    update_quality_logic(item)
   end
 
   def update_quality_logic(item)
-    if item.name == 'Backstage passes to a TAFKAL80ETC concert'
+    if backstage_pass?(item)
       update_bsp_quality(item)
-    elsif item.name == 'Aged Brie'
+    elsif aged_brie?(item)
       update_brie_quality(item)
     elsif conjured?(item)
       update_conjured_quality(item)
@@ -37,7 +36,7 @@ class GildedRose
   end
 
   def update_bsp_quality(item)
-    if passed_sell_in?(item)
+    if past_sell_in?(item)
       item.quality = MIN_QUALITY
     else
       bsp_quality_increase_reflects_demand(item)
@@ -46,7 +45,7 @@ class GildedRose
 
   def update_brie_quality(item)
     increase_quality_by_one(item)
-    increase_quality_by_one(item) if passed_sell_in?(item)
+    increase_quality_by_one(item) if past_sell_in?(item)
   end
 
   def update_conjured_quality(item)
@@ -55,7 +54,7 @@ class GildedRose
 
   def update_item_quality(item)
     decrease_quality_by_one(item)
-    decrease_quality_by_one(item) if passed_sell_in?(item)
+    decrease_quality_by_one(item) if past_sell_in?(item)
   end
 
   def update_sell_in(item)
@@ -76,15 +75,23 @@ class GildedRose
     item.quality -= 1 if item.quality > MIN_QUALITY
   end
 
+  def past_sell_in?(item)
+    item.sell_in < 0
+  end
+
+  def backstage_pass?(item)
+    item.name == 'Backstage passes to a TAFKAL80ETC concert'
+  end
+
+  def aged_brie?(item)
+    item.name == 'Aged Brie'
+  end
+
   def conjured?(item)
     item.name.downcase.include?('conjured')
   end
 
   def legendary?(item)
     LEGENDARY_ITEMS.include?(item.name)
-  end
-
-  def passed_sell_in?(item)
-    item.sell_in < 0
   end
 end

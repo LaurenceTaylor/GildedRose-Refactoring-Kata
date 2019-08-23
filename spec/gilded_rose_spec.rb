@@ -6,13 +6,7 @@ describe GildedRose do
 
   describe '#update_quality' do
     context 'in most cases: not brie, backstage passes, or Sulfuras' do
-      it 'does not change the name' do
-        items = [Item.new('foo', 0, 0)]
-        update(items)
-        expect(items[0].name).to eq 'foo'
-      end
-
-      it 'should reduce item quality by 1 unless brie/ BSP (backstage pass)' do
+      it 'should reduce item quality by 1' do
         items = [Item.new('Orange Juice', 7, default_quality)]
         update(items)
         expect(items[0].quality).to eq(default_quality - 1)
@@ -25,7 +19,7 @@ describe GildedRose do
         expect(items[0].quality).to eq(init_quality)
       end
 
-      it 'degrades twice as fast if past its sell by' do
+      it 'should degrade in quality twice as fast if past sell_in' do
         items = [Item.new('Tottenham Hotspur', 0, default_quality)]
         update(items)
         expect(items[0].quality).to eq(default_quality - 2)
@@ -81,7 +75,7 @@ describe GildedRose do
       end
     end
 
-    context 'if item is Sulfuras' do
+    context 'if item is Legendary' do
       it 'should not change quality' do
         items = [Item.new('Sulfuras, Hand of Ragnaros', 10, 80)]
         update(items)

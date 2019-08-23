@@ -11,6 +11,7 @@ GEM
       ast (~> 2.4.0)
     powerpack (0.1.2)
     rainbow (3.0.0)
+    rake (12.3.3)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -43,16 +44,17 @@ GEM
     simplecov-html (0.10.2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    unicode-display_width (1.6.0)
+    unicode-display_width (1.4.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  rake
   rspec
   rubocop (= 0.56.0)
   simplecov
   simplecov-console
 
 BUNDLED WITH
-   1.17.2
+   1.17.3
